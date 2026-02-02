@@ -22,7 +22,7 @@ export class LoginComponent {
 
   rememberMe: boolean = false;
   user:User = {
-    id: 0,
+    id: '',
     name: '',
     email: '',
     password: '',
