@@ -3,7 +3,7 @@
 <h3>Registered worktimes list</h3>
 
 
-<p-select [options]="users" [(ngModel)]="selectedUser" optionValue="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a User" class="w-full md:w-56">
+<p-select [options]="users" [(ngModel)]="selectedUser" optionValue="id" optionLabel="name" [filter]="true" filterBy="name" (onChange)="ChangeUsers()" [showClear]="true" placeholder="Select a User" class="w-full md:w-56">
     <ng-template #selectedItem let-selectedOption>
         <div class="flex items-center gap-2">
             <div>{{ selectedOption.name }}</div>
@@ -61,7 +61,10 @@
                 <td>{{ worktime.user?.name }}</td>
                 <td>{{ worktime.start }}</td>
                 <td>{{ worktime.end }}</td>
-                <td class="text-right">Gombok </td>
+                <td class="text-right">
+                    <p-button icon="pi pi-pencil" class="mr-2" routerLink="/worktimes/{{worktime.id}}" severity="secondary"></p-button>
+                    <p-button icon="pi pi-trash" (click)="deleteWorktime(worktime.id)" severity="danger"></p-button>    
+                </td>
             </tr>
         </ng-template>
     </p-table>

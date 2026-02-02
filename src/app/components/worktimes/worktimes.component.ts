@@ -11,6 +11,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { IconFieldModule } from 'primeng/iconfield';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-worktimes',
@@ -29,7 +30,6 @@ export class WorktimesComponent {
  constructor(private api: ApiService) {}
  ngOnInit(): void {
    this.getUsers();
-   this.getWorkTimes(null);
  }
 
  getUsers() {
@@ -53,8 +53,11 @@ export class WorktimesComponent {
       next: (res) => {
         this.worktimes = res as WorkTime[];
         this.worktimes.forEach(worktime => {
-          worktime.user = this.users.find(u => u.id == worktime.userId || null);
+          worktime.date = moment(worktime.date).format('YYYY-MM-DD');
+          worktime.user = this.users.find(u => u.id == worktime.userId) || null;
         });
+
+        console.log(this.worktimes);
       },
       error: (err) => {
         console.error(err.error.error);
@@ -65,12 +68,36 @@ export class WorktimesComponent {
     this.api.selectAll('worktimes').subscribe({
       next: (res) => {
         this.worktimes = res as WorkTime[];
+        this.worktimes.forEach(worktime => {
+          worktime.date = moment(worktime.date).format('YYYY-MM-DD');
+          worktime.user = this.users.find(u => u.id == worktime.userId) || null;
+        });
+
+        console.log(this.worktimes);
       },
       error: (err) => {
         console.error(err.error.error);
       }
     });
    }
+ }
+ ChangeUsers() {
+   if (this.selectedUser) {
+     this.getWorkTimes(this.selectedUser.id);
+   } else {
+     this.getWorkTimes(null);
+   }
+ }
+ deleteWorktime(id: string) {
+   this.api.delete('worktimes', id).subscribe({
+     next: (res) => {
+       console.log('Worktime deleted successfully:', res);
+       this.getWorkTimes(this.selectedUser!.id);
+     },
+     error: (err) => {
+       console.error('Error deleting worktime:', err.error.error);
+     }
+   });
  }
    handleInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;

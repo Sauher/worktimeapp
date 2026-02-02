@@ -1,10 +1,10 @@
 import { User } from "./user";
 
 export interface WorkTime {
-  id: string;
+  id?: string;
   userId: string;
   user? : User | null;
-  date: Date;
+  date: string | Date;
   start: string;
   end: string;
 }

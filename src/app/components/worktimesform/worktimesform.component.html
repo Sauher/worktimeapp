@@ -2,6 +2,42 @@
   <h1>New Worktime</h1>
   <h3>Create a new worktime entry</h3>
 
-  <p-button icon="pi pi-arrow-left" label="Back" routerLink="/worktimes" severity="secondary" class="mr-2"></p-button>
+  
+
+  <div class="card flex justify-content-center mb-3">
+  <p-select [options]="users" [(ngModel)]="selectedUser" optionValue="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"  placeholder="Select a User" class="w-full md:w-56">
+    <ng-template #selectedItem let-selectedOption>
+        <div class="flex items-center gap-2">
+            <div>{{ selectedOption.name }}</div>
+        </div>
+    </ng-template>
+    <ng-template let-user #item>
+        <div class="flex items-center gap-2">
+            <div>{{ user.name }}</div>
+        </div>
+    </ng-template>
+</p-select>
+</div>
+<div class="card flex justify-content-center mb-3">
+<p-datepicker [(ngModel)]="worktime.date" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
+</div>
+<div class="card flex justify-content-center mb-3">
+<p-datepicker [(ngModel)]="worktime.start" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
+    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+    </ng-template>
+</p-datepicker>
+</div>
+<div class="card flex justify-content-center mb-3">
+<p-datepicker [(ngModel)]="worktime.end" [iconDisplay]="'input'" [showIcon]="true" [timeOnly]="true" inputId="templatedisplay">
+    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+        <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+    </ng-template>
+</p-datepicker>
+</div>
+<div class="card flex justify-content-center mb-3">
+<p-button icon="pi pi-arrow-left" label="Back" routerLink="/worktimes" severity="secondary" class="mr-2"></p-button>
   <p-button icon="pi pi-check" label="Save" (click)="save()" severity="primary"></p-button>
+</div>
+
 </div>

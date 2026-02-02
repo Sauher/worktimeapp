@@ -17,6 +17,7 @@ export const routes: Routes = [
         children: [
             { path: '', component: WorktimesComponent },
             { path: 'new', component: WorktimesformComponent },
+            { path: ':id', component: WorktimesformComponent }
         ]
     },
     { path: 'statistics', component: StatisticsComponent },
