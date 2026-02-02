@@ -1,32 +1,61 @@
-<div class="card xs:col-12 md:col-10 lg:col-8 mx-auto p-4 text-center">
-    <h2 class="text-center">Users</h2>
-    <p class="text-justify">Here you can manage users.</p>
+<div class="card xs:col-12 md:col-10 lg:col-8 mx-auto px-3 text-center">
 
-    <div class="card">
-    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]">
-        <ng-template #header>
+  <h1>Users</h1>
+
+  <h3>Registered users list</h3>
+
+
+<div class="card">
+    <p-table
+      #dt2
+      [value]="users"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [paginator]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-striped"
+      selectionMode="single"
+      [globalFilterFields]="filterFields"
+    >
+
+    <ng-template pTemplate="caption">
+      <div class="flex">
+          <p-iconField iconPosition="left" class="ml-auto">
+              <p-inputIcon>
+                  <i class="pi pi-search"></i>
+              </p-inputIcon>
+              <input
+                  pInputText
+                  type="text"
+                  (input)="handleInput($event)"
+                  placeholder="Search keyword" />
+          </p-iconField>
+      </div>
+  </ng-template>
+
+        <ng-template pTemplate="header">
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Registration</th>
-                <th>Last login</th>
-                <th>Operations</th>
+                <th pSortableColumn="name" >Name <p-sortIcon field="name" /></th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
+                <th pSortableColumn="reg">Registration <p-sortIcon field="reg" /></th>
+                <th pSortableColumn="last">Last login <p-sortIcon field="last" /></th>
+                <th  class="text-right">Operations</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
             <tr>
-                <td> {{rowIndex + 1}}</td>
+                <td>{{ rowIndex +1 }}.</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.reg.split('T')[0]}}</td>
-                <td>{{ user.lastLogin}}</td>
-                <td>
-                    <button pButton label="Edit" icon="pi pi-pencil"></button>
-                    <button pButton label="Delete" icon="pi pi-trash"></button>
-                </td>
+                <td>{{ user.reg }}</td>
+                <td>{{ user.last }}</td>
+                <td class="text-right"><p-inputSwitch [(ngModel)]="user.status"/> </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+
+
+
 </div>
