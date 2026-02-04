@@ -4,8 +4,8 @@
 
   
 
-  <div class="card flex justify-content-center mb-3">
-  <p-select [options]="users" [(ngModel)]="selectedUser" optionValue="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"  placeholder="Select a User" class="w-full md:w-56">
+    <div class="card flex justify-content-center mb-3">
+    <p-select [options]="users" [(ngModel)]="selectedUser" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"  placeholder="Select a User" class="w-full md:w-56">
     <ng-template #selectedItem let-selectedOption>
         <div class="flex items-center gap-2">
             <div>{{ selectedOption.name }}</div>

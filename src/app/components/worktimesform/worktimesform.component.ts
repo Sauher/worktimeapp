@@ -48,7 +48,7 @@ export class WorktimesformComponent implements OnInit {
 
   save() {
     let data: WorkTime = {
-      userId: this.worktime.userId,
+      userId: this.selectedUser?.id || '',
       date: moment(this.worktime.date).format('YYYY-MM-DD'),
       start: moment(this.worktime.start, 'HH:mm').format('HH:mm'),
       end: moment(this.worktime.end, 'HH:mm').format('HH:mm')

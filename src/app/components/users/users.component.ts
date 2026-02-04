@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   filterValue: string = '';
   filterFields: string[] = ['name', 'email'];
+  selectedUser: User | null = null;
 
   constructor(
     private api:ApiService
@@ -48,6 +49,17 @@ export class UsersComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.filterValue = inputElement.value;
     this.dt2.filterGlobal((this.filterValue), 'contains');
+  }
+
+  updateUserstatus(){
+    this.api.update('users', this.selectedUser?.id || '', { status: this.selectedUser?.status }).subscribe({
+      next: (res) => {
+        console.log('User status updated successfully:', res);
+      },
+      error: (err) => {
+        console.error('Error updating user status:', err.error.error);
+      }
+    });
   }
 
 }
