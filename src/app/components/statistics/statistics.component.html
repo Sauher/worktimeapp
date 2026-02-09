@@ -3,7 +3,7 @@
   <h3>Worktime statistics overview</h3>
 
   <div class="mb-3">
-    <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" [showIcon]="true" (change)="refreshChart()"/>
+    <p-datepicker [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" [showIcon]="true" (onSelect)="refreshChart()"/>
   </div>
   
   <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
